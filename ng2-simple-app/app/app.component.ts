@@ -5,13 +5,13 @@ import {ExperimentsComponent} from './experiments/experiments.component';
 import {HomeComponent} from './home/home.component';
 import {StateService} from './common/state.service';
 import {ExperimentsService} from './common/experiments.service';
-
+import {PricingService} from './common/widgets/pricing.service';
 @Component({
   selector: 'app',
   templateUrl: 'app/app.component.html',
   styleUrls: ['app/app.component.css'],
   directives: [ ROUTER_DIRECTIVES ],
-  providers: [StateService, ExperimentsService],
+  providers: [StateService, ExperimentsService, PricingService],
 })
 @RouteConfig([
   {path: '/home',        name: 'Home',        component: HomeComponent, useAsDefault: true },

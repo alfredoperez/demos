@@ -1,10 +1,14 @@
 import {Component, OnInit} from 'angular2/core';
 import {StateService} from '../common/state.service';
 import {Config} from '../common/config.model';
+import {Widgets} from '../common/widgets/widgets.component';
+
 @Component({
   selector: 'home',
-  templateUrl: 'app/home/home.component.html'
+  templateUrl: 'app/home/home.component.html',
+  directives:[Widgets]
 })
+
 export class HomeComponent implements OnInit {
   title: string = 'Home Page';
   body:  string = 'This is the about home body';

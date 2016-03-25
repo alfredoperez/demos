@@ -1,0 +1,18 @@
+<div class="widget">
+    <h1>{{message}}</h1>
+    <div class="scroll" (scroll)="handleScroll()">
+        <div>hey</div>
+        <div>hey</div>
+        <div>hey</div>
+        <div>hey</div>
+        <div>hey</div>
+        <div>hey</div>
+        <div>hey</div>
+        
+    </div>
+      <div *ngFor="#widget of widgets">
+
+        <div>{{widget.name}} - {{widget.price | currency}}</div>
+        
+    </div>
+</div>
