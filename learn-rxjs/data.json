@@ -1,0 +1,17 @@
+{
+  "posts": [],
+  "users": [
+    {
+      "name": "scott",
+      "age": 25
+    },
+    {
+      "name": "bill",
+      "age": 30
+    },
+    {
+      "name": "lukas",
+      "age": 56
+    }
+  ]
+}

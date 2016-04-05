@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+  <script src="node_modules/rx/dist/rx.all.js"></script>
+  <style>
+    body {
+      background-color: #efefef;
+      padding: 150px;
+    }
+
+    body * {
+      box-sizing: border;
+    }
+
+    button {
+      color: white;
+      background-color: red;
+      border: none;
+      outline: none;
+      width: 120px;
+      padding: 10px;
+      text-align: center;
+      text-transform: capitalize;
+      box-sizing: border-box;
+      cursor: pointer;
+      transition: transform .2s ease-in-out;
+    }
+
+    button:active {
+      background-color: crimson;
+    }
+
+    input {
+      background-color: white;
+      border: none;
+      border-radius: 4px;
+      outline: none;
+      font-size: 2rem;
+      height: 80px;
+      color: gray;
+    }
+    .circle {
+      background-color: seagreen;
+      border-radius: 100%;
+      width: 200px;
+      height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="coords"></h1>
+  <h1 class="clicks"></h1>
+  <input type="text" placeholder="type" />
+  <div class="circle" draggable='true'></div>
+  <ul class="list"></ul>
+  <button>click</button>
+
+  <script>
+    // Calling server
+   var getUser = function(name){
+       return fetch('http://localhost:3000/users?name=' + name,{
+           'headers':{
+               'ContentType': 'application/json'
+           }
+       }).then(function(res){
+           return res.json();
+       });
+   };
+   var $  = document.querySelector.bind(document);
+   var $$ = document.querySelectorAll.bind(document);
+
+   var input = $('input');
+   var inputStream = Rx.Observable.fromEvent(input, 'keyup');
+ 
+   inputStream
+       //waits 500 ms
+      .debounce(500)  
+      //gets event value
+      .map(function(e){ return e.target.value;}) 
+      // only when is more than 4 characters
+      .filter(function(value){return value.length > 2;}) 
+       //only when is new
+      .distinctUntilChanged() 
+      //implicitily create an observable from the get users result.
+      //but merging with the observable above
+      .flatMap(getUser)
+      .subscribe(function(value){console.log(value);});
+
+  var button = $('button');
+  var buttonStream  = Rx.Observable.fromEvent(button, 'click');
+  var h1= $('.clicks')
+  buttonStream
+     //tirgger event after a period or number of times
+    .buffer(buttonStream.debounce(250))
+    .map(function(buffer){return buffer.length;})
+    .filter(function(amount){return amount >= 2;})
+    .subscribe(function(clicks){
+       h1.innerHTML = clicks + 'x clicks';
+    })
+  
+  </script>
+</body>
+</html>

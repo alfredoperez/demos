@@ -1,0 +1,20 @@
+{
+  "name": "rx-learn",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "api": "node_modules/.bin/json-server data.json",
+    "client": "node_modules/.bin/serve --port 4500",
+    "start": "npm run api & npm run client"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "json-server": "^0.8.9",
+    "rx": "^4.1.0",
+    "serve": "^1.4.0"
+  }
+}
